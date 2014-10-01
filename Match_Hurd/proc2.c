@@ -2,10 +2,11 @@
 #include <mach_error.h>
 #include <mach/mig_errors.h>
 #include <mach/thread_status.h>
+#include <mach/processor_info.h>>
+#include <mach/mach_host.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <hurd.h>
-
 
         processor_array_t processor_list = NULL;
         mach_msg_type_number_t processor_listCnt = 0;
