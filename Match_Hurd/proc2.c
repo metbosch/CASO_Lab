@@ -16,6 +16,9 @@ int main ()
    int res, i;
    mach_port_t host_privileged_port;
    device_t device_privileged_port;
+   mach_port_t* host;
+   mach_msg_type_number_t procInfoCnt;
+   processor_info_t procInfo;
 
    res = get_privileged_ports(&host_privileged_port, &device_privileged_port);
    if (res != KERN_SUCCESS) {
@@ -40,8 +43,11 @@ int main ()
    printf ("        processors at array 0x%x\n", processor_list);
    printf ("processor_listCnt %d\n", processor_listCnt);
 
-   for (i=0; i < processor_listCnt; i++) {
+   host = (mach_port_t *) malloc(10*sizeof(mach_port_t));
+   procInfo = (processor_info_t) malloc(PROCESSOR_INFO_MAX*sizeof(int));
 
+   for (i=0; i < processor_listCnt; i++) {
+      mach_msg_type_number_t procInfoCnt;
       procInfoCnt = sizeof(int)*PROCESSOR_INFO_MAX;
       res = processor_info (processor_list[i], PROCESSOR_BASIC_INFO, host, procInfo, &procInfoCnt);
       if( res != KERN_SUCCESS) {
@@ -58,8 +64,5 @@ int main ()
       printf("CPU Master: \t\t%s\n", basicInfo->is_master ? "YES" : "NO");
       printf("----------------------------------\n");
       fflush(stdout);
-
-
-
    }
 }
