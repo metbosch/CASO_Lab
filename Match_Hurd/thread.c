@@ -19,7 +19,7 @@ unsigned char threadStack[STACK_SIZE];
 
 void threadLoop() {
    while(1) {
-
+      print("CASO");
    }
 }
 
