@@ -11,7 +11,6 @@
 
 #define PAG_SIZE 4096
 #define SLEEP_TIME 1500
-#define PRINT_DATA_INFO 1
 
 void checkError(int res, char * str) {
    if (res != KERN_SUCCESS) {
@@ -34,6 +33,7 @@ int main ()
               "Error copying vm data (0x%x), %s\n");
 
 #if PRINT_DATA_INFO
+   data[0] = 10;
    printf("Data Structure info\n");
    printf("  Starts: %d\n", &data[0]);
    printf("  Ends:   %d\n", &data[PAG_SIZE - 1]);
