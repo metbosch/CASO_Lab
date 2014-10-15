@@ -42,7 +42,7 @@ int main ()
               "Error getting thread state (0x%x), %s\n");
    thread_state.uesp = threadStack[STACK_SIZE] - 100;
    thread_state.eip = threadLoop;
-   checkError(thread_set_state(child, i386_THREAD_STATE,(thread_state_t)thread_state, state_count),
+   checkError(thread_set_state(child, i386_THREAD_STATE,(thread_state_t *)(&thread_state), state_count),
               "Error setting thread state (0x%x), %s\n");
    checkError(thread_resume(child), "Error resuming thread (0x%x), %s\n");
 
