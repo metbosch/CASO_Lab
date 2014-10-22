@@ -69,10 +69,10 @@ int main (int argc, char *argv[])
       }
    }
    checkError(gettimeofday(&end, 0) != 0, "Error getting time");
-   double time = (double)((end.tv_sec - begin.tv_sec) + (end.tv_usec - begin.tv_usec)/1000000.0);
+   double time = (double)((end.tv_sec - begin.tv_sec)*1000000.0 + (end.tv_usec - begin.tv_usec));
 
    printf("------- RESULTS -------\n");
-   printf("Total:\t%f s\n", time);
-   printf("Med:\t%f\n", time/(double)reps);
+   printf("Total:\t%f us\n", time);
+   printf("Med:\t%f us\n", time/(double)reps);
    printf("-----------------------\n");
 }
