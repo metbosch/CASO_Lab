@@ -1,0 +1,91 @@
+1024
+
+./write-to-disk1 /dev/sda6
+Temps escritura: 3.652267  
+Bandwith: 280.373806Mbytes x sec 
+
+./write-to-disk1 file.txt
+Temps escritura: 16.635873 
+Bandwith: 61.553728Mbytes x sec 
+
+./write-to-disk2 128 0 file.txt
+------- RESULTS -------
+Time:	16.675130 s
+Bytes:	1073741824
+MB/s:	64.391811
+-----------------------
+
+./write-to-disk2 128 0 /dev/sda6
+------- RESULTS -------
+Time:	4.152417 s
+Bytes:	1073741824
+MB/s:	258.582369
+-----------------------
+
+
+512
+
+./write-to-disk2 128 0 /dev/sda6
+------- RESULTS -------
+Time:	0.489587 s
+Bytes:	536870912
+MB/s:	1096.579182
+-----------------------
+
+ ./write-to-disk2 128 0 file.txt
+------- RESULTS -------
+Time:	4.925046 s
+Bytes:	536870912
+MB/s:	109.008304
+-----------------------
+
+./write-to-disk1 file.txt
+Temps escritura: 4.885987 
+Bandwith: 109879725.836356bytes x sec 
+Bandwith: 104.789472Mbytes x sec 
+
+./write-to-disk1 /dev/sda6
+Temps escritura: 0.485929 
+Bandwith: 1104834064.235722bytes x sec 
+Bandwith: 1053.651871Mbytes x sec 
+
+200
+
+./write-to-disk1 /dev/sda6
+Temps escritura: 0.189741 
+Bandwith: 1105270869.237540bytes x sec 
+Bandwith: 1054.068441Mbytes x sec 
+
+./write-to-disk1 file.txt
+Temps escritura: 1.831173 
+Bandwith: 114525061.258548bytes x sec 
+Bandwith: 109.219610Mbytes x sec 
+
+./write-to-disk2 128 0 /dev/sda6
+------- RESULTS -------
+Time:	0.192622 s
+Bytes:	209715200
+MB/s:	1088.739604
+-----------------------
+
+./write-to-disk2 128 0 file.txt
+------- RESULTS -------
+Time:	1.829668 s
+Bytes:	209715200
+MB/s:	114.619264
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

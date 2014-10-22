@@ -56,12 +56,10 @@ Bandwith: 789.698141Mbytes x sec
 1024MB
 ./write-to-disk1 /dev/sda6
 Temps escritura: 3.476528 
-Bandwith: 30470441148.180023bytes x sec 
 Bandwith: 294.546743Mbytes x sec 
 
 ./write-to-disk1 file.txt
 Temps escritura: 14.472221 
-Bandwith: 7319632682.778960bytes x sec 
 Bandwith: 70.756244Mbytes x sec 
 
 ./write-to-disk2 128 0 /dev/sda6

@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 #define FILE_PATH "/tmp/caso_write200.txt"
-#define SIZE_WRITE 1024*1024*1024
+#define SIZE_WRITE 200*1024*1024
 #define NUM_PARAMS 3
 
 struct timeval begin, end;
