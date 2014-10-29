@@ -16,12 +16,12 @@ void handleError(const char *text) {
 }
 
 void usage() {
-    printf("USAGE: chunkSIZE_read[def. 1024 bytes], sync[0, 1], FilePath\n");
+    printf("USAGE: chunkSize[def. 1024 bytes], sync[0, 1], FilePath\n");
     exit(1);
 }
 
 void printResults(double time, unsigned int size) {
-   printf("------- RESULTS -------\n");
+   printf("---- RESULTS  READ ----\n");
    printf("Time:\t%f s\n", time);
    printf("Bytes:\t%d\n", size);
    printf("MB/s:\t%f\n", size/time/1000000.0);
@@ -32,7 +32,7 @@ void main(int argc, char *argv[]) {
    int chunkSize = 1024;
    unsigned char sync = 0;
 
-   if (argc != 1 && argc != 1 + NUM_PARAMS) usage();
+   if (argc != 1 + NUM_PARAMS) usage();
    if (argc != 1) {
       chunkSize = atoi(argv[1]);
       sync = atoi(argv[2]);

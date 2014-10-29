@@ -22,7 +22,7 @@ void usage() {
 }
 
 void printResults(double time, unsigned int SIZE) {
-   printf("------- RESULTS -------\n");
+   printf("---- RESULTS WRITE ----\n");
    printf("Time:\t%f s\n", time);
    printf("Bytes:\t%d\n", SIZE);
    printf("MB/s:\t%f\n", SIZE/time/1000000.0);
@@ -32,14 +32,17 @@ void printResults(double time, unsigned int SIZE) {
 void main(int argc, char *argv[]) {
    int chunkSize = 1024;
    unsigned char sync = 0;
+   char fileDef[] = FILE_PATH;
+   char *file = fileDef;
 
    if (argc != 1 && argc != 1 + NUM_PARAMS) usage();
    if (argc != 1) {
       chunkSize = atoi(argv[1]);
       sync = atoi(argv[2]);
+      file = argv[3];
    }
 
-   FILE *f = fopen(argv[3], "w+");
+   FILE *f = fopen(file, "w+");
    if (f == NULL) handleError("Error opening file");
    if (gettimeofday(&begin, 0) != 0) handleError("Error getting time");
 
