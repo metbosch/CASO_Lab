@@ -22,7 +22,7 @@ void usage() {
 }
 
 void printResults(double time, unsigned int SIZE) {
-   printf("------- RESULTS -------\n");
+   printf("---- RESULTS WRITE ----\n");
    printf("Time:\t%f s\n", time);
    printf("Bytes:\t%d\n", SIZE);
    printf("MB/s:\t%f\n", SIZE/time/1000000.0);
