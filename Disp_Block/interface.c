@@ -7,6 +7,8 @@
 #include <linux/hdreg.h>
 #include <linux/vmalloc.h>
 
+#include <linux/bio.h>
+
 #include "interface.h"
 
 
@@ -242,15 +244,15 @@ static void xrd_make_request(struct request_queue *q, struct bio *bio)
 printk(KERN_DEBUG "xrd_make_request starts\n");
 #endif
 
-   sector = bio->bi_iter.bi_sector;
-   if ((sector + (bio->bi_iter.bi_size >> SECTOR_SHIFT)) <= 
+   sector = bio->bi_sector;
+   if ((sector + (bio->bi_size >> SECTOR_SHIFT)) <= 
                                           get_capacity(bdev->bd_disk))
    {
       if (! (bio->bi_rw & REQ_DISCARD)) {
          struct xrd_struct *xrd = bdev->bd_disk->private_data;
          int rw;
-         struct bio_vec bvec;
-         struct bvec_iter i;
+         struct bio_vec *bvec;
+         int i;
          rw = bio_rw(bio);
          if (rw == READA) rw = READ;
 #ifdef DEBUG
@@ -259,14 +261,14 @@ printk(KERN_DEBUG "xrd_make_request starts\n");
 	      printk(KERN_DEBUG "xrd disk_memory %p\n", xrd->disk_memory);
 #endif
          bio_for_each_segment(bvec, bio, i) {
-                unsigned int len = bvec.bv_len;
+                unsigned int len = bvec->bv_len;
 #ifdef DEBUG
 		printk("   Processing %s request %d, sector %ld, page %p\n",
-                    (rw==READ)? "READ" : "WRITE", i, sector, bvec.bv_page);
+                    (rw==READ)? "READ" : "WRITE", i, sector, bvec->bv_page);
 #endif
 
-                err = xrd_do_bvec(xrd, bvec.bv_page, len,
-                                       bvec.bv_offset, rw, sector);
+                err = xrd_do_bvec(xrd, bvec->bv_page, len,
+                                       bvec->bv_offset, rw, sector);
                 if (err)
                         break;
                 sector += len >> SECTOR_SHIFT;

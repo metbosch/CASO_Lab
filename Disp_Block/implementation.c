@@ -8,13 +8,17 @@
 
 #include "interface.h"
 
-
 char * alloc_disk_memory(unsigned long size)
 {
    char * p = NULL;
+   unsigned int i;
 
    // la vostra implementacio va aqui
-
+   p = vmalloc(PAGE_ALIGN(size));
+   if (p != NULL) {
+      //p = (char *)(memset((void *)p, i%256, PAGE_ALIGN(size)));
+      for (i = 0; i < size; ++i) p[i] = i%256;
+   }
 
    // fi de la vostra implementacio
 
@@ -26,7 +30,7 @@ char * alloc_disk_memory(unsigned long size)
 void   free_disk_memory(char * disk_mem)
 {
    // la vostra implementacio va aqui
-
+   vfree(disk_mem);
 
    // fi de la vostra implementacio
    printk(KERN_DEBUG "free_disk_memory %p\n", disk_mem);
