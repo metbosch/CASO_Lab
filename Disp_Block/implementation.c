@@ -39,10 +39,14 @@ void   free_disk_memory(char * disk_mem)
 
 int xrd_getgeo(struct block_device * bdev, struct hd_geometry *geo)
 {
-   int res = -EIO;
+   int res = 0;
 
    // la vostra implementacio va aqui
 
+   geo->sectors = 128;
+   geo->heads = 32;
+   geo->start = 0;
+   geo->cylinders = ((struct xrd_struct *)bdev->bd_disk->private_data)->size / geo->heads / geo->sectors / SECTOR_SIZE;
 
    // fi de la vostra implementacio
 
@@ -55,12 +59,13 @@ int xrd_getgeo(struct block_device * bdev, struct hd_geometry *geo)
 int copy_from_xrd(void *dst, struct xrd_struct *xrd,
                         sector_t sector, size_t n)
 {
-   int res = -ENODEV;
+   int res = 0;
 
    // la vostra implementacio va aqui
 
-
-
+   if (memcpy(dst, xrd->disk_memory + sector * SECTOR_SIZE, n) != dst) {
+      res = -EIO;
+   }
 
    // fi de la vostra implementacio
 
@@ -72,12 +77,14 @@ int copy_from_xrd(void *dst, struct xrd_struct *xrd,
 int copy_to_xrd(struct xrd_struct *xrd, void *src,
                         sector_t sector, size_t n)
 {
-   int res = -ENODEV;
+   int res = 0;
    
    // la vostra implementacio va aqui
 
-
-
+   void *dst = xrd->disk_memory + sector * SECTOR_SIZE;
+   if (memcpy(dst, src, n) != dst) {
+      res = -EIO;
+   }
 
    // fi de la vostra implementacio
 
